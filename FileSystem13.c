@@ -8,6 +8,7 @@ int main(int argc , char * argv[])
     int fd =  0 ;
     int Ret =  0 ;
     char * Buffer =  NULL;
+    int size = 0 ;
 
     if (argc != 3 )
     {
@@ -22,7 +23,9 @@ int main(int argc , char * argv[])
         return -1;
     }
 
-    Buffer = (char * )malloc (sizeof (atoi(argv[2])));  // Dynamic Memory Allocation
+    size = atoi(argv[2]);
+
+    Buffer = (char * )malloc (size);  // Dynamic Memory Allocation
     
 
     Ret = read(fd , Buffer, atoi( argv [2]));
