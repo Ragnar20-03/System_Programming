@@ -25,7 +25,7 @@ int main(int argc , char * argv[])
     printf(" %d : ",Ret);
     if ( Ret == 0 )
     {
-        printf("Unable to Read Data fromthe Fle \n");
+        printf("Unable to Read Data from the Fle \n");
     }
     else
     {

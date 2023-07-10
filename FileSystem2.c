@@ -1,16 +1,15 @@
 #include<stdio.h>
 
-int main(int argc , char * argv[])
+int main(int argc, char *argv[])
 {
-    if (argc == 1)
+    if(argc == 1)
     {
-        printf("Please Enter Your Name as Command Line Argumet");
+        printf("Please enter your first name as command line argument");
         return -1;
-
     }
-    else 
+    else
     {
-        printf("Welcome to Marvellous :  %s \n" , argv[1]);
-        return 0 ; 
+        printf("Welcome to Marvellous : %s\n",argv[1]);
+        return 0;
     }
 }
