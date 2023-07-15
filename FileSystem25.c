@@ -12,6 +12,7 @@ int main(int argc , char * argv[])
     DIR * dp = NULL;
     struct dirent *entry  = NULL;
     char name[30];
+    struct stat sobj;
 
     printf("Enter Name of Directory \n");
     scanf("%s",DirName);
@@ -26,7 +27,11 @@ int main(int argc , char * argv[])
     while (( entry = readdir(dp)) != NULL) 
     {
         sprintf(name , "%s/%s" , DirName,entry -> d_name);
-        printf("%s\n",name);
+        stat ( name , &sobj);
+        if (S_ISREG(sobj.st_mode))
+        {
+        printf("File Name : %s   FileSize : %ld \n" , name , sobj.st_size);
+        }
     }
 
     closedir(dp);

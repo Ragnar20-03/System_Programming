@@ -6,12 +6,16 @@
 #include<dirent.h>
 #include<sys/stat.h>
 
+// Largest File 
 int main(int argc , char * argv[])
 {
     char DirName[20];
     DIR * dp = NULL;
     struct dirent *entry  = NULL;
     char name[30];
+    struct stat sobj;
+    char NameCopy[30] = {'/0'};
+    int iMax = 0 ;
 
     printf("Enter Name of Directory \n");
     scanf("%s",DirName);
@@ -26,8 +30,16 @@ int main(int argc , char * argv[])
     while (( entry = readdir(dp)) != NULL) 
     {
         sprintf(name , "%s/%s" , DirName,entry -> d_name);
-        printf("%s\n",name);
+        stat ( name , &sobj);
+        if (S_ISREG(sobj.st_mode))
+        {
+            if ( iMax < sobj.st_size)
+            iMax = sobj.st_size;
+            strcpy(NameCopy , name);
+        }
     }
+
+    printf("Name of  Largest File is : %s  with size %d Bytes \n",NameCopy , iMax);
 
     closedir(dp);
 
