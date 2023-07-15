@@ -1,44 +1,239 @@
 #include<stdio.h>
-#include<fcntl.h>
-#include<unistd.h>
 #include<stdlib.h>
-#include<sys/stat.h>
-#include<dirent.h>
-#include<sys/stat.h>
 
 
-#define BLOCKSIZE 1024
+struct Node{
+    struct Node * prev ; 
+        int val ; 
+    struct Node * next;
+};
 
-int main( int argc , char * argv[])
+void Display ( struct Node * Head , struct Node * Tail)
 {
+    int iCount = 0 ;
+    if ( Head == NULL && Tail == NULL)
+    {
+        return;
+    }
 
-    DIR * dp = NULL;
-    int fd = 0;
-    struct stat sobj;
+    do
+    {
+        printf(" : %d :", Head -> val);
+        Head = (Head) -> next;
+
+    }while(Head != Tail -> next);
+            printf ( "\n");
+
+}
+
+int Count ( struct Node * Head , struct Node * Tail)
+{
+    int iLength = 0 ;
+    if ( Head != NULL && Tail != NULL)
+    {
     
-    dp = opendir(argv[1]);
-    if ( dp == NULL)
-    {
-        printf("Unable to Open Directory for some resaons .. \n");
-        return -1;
+    do {
+        iLength++;
+        Head = (Head) -> next;
+    }while(Head != Tail -> next);
     }
 
-    struct dirent * entry = readdir(dp) ;
+    return iLength;
+}
 
-    printf( " Fle Name : \t \t INODE Number \n");
-    printf( ".....................................................\n");
+void InsertFirst (struct Node ** Head , struct Node ** Tail , int No )
+{
+    struct Node * newn = (struct Node *) malloc(sizeof(struct Node));
+        newn -> prev = NULL;
+        newn -> val = No;
+        newn -> next = NULL;
 
-    while (( entry = readdir(dp)) != NULL)
+    if ( *Head == NULL && *Tail == NULL)
     {
-        printf( "%s \t\t  %d \n" , entry->d_name , entry -> d_ino);
-        stat(entry -> d_name , &sobj);
-        if (S_ISREG(sobj.st_mode))
+        *Head = newn ;
+        *Tail = newn ;
+    }
+    else
+    {
+        newn -> next = *Head;
+        (*Head) -> prev = newn ;
+        *Head = newn;
+
+    }
+        (*Head) -> prev = *Tail;
+        (*Tail) -> next = *Head;
+}
+
+void InsertLast (struct Node ** Head , struct Node ** Tail , int  No )
+{
+    struct Node * newn = ( struct Node * ) malloc(sizeof(struct Node));
+        newn -> prev = NULL;
+        newn -> val = No;
+        newn -> next = NULL;
+
+    if ( *Head == NULL && *Tail == NULL)
+    {
+        *Head = newn;
+        *Tail = newn ;
+    }
+    else{
+        (*Tail) -> next = newn;
+        newn -> prev = *Tail;
+        *Tail = (*Tail) -> next;
+    }
+    (*Head) -> prev  = *Tail;
+    (*Tail) -> next = *Head;
+}
+
+
+void InsertAtPos (struct Node ** Head , struct Node ** Tail , int iPos, int No )
+{
+    int iLength = Count( *Head , *Tail );
+    if ( iPos < 1 || iPos > iLength +1)
+    {
+        return ;
+    }
+
+    if ( iPos == 1)
+    {
+        InsertFirst ( Head , Tail  , No);
+    }
+    else if ( iPos == iLength + 1)
+    {
+        InsertLast(Head , Tail , No);
+    }
+    else
+    {
+        struct Node * newn = ( struct Node *) malloc(sizeof(struct Node));
+                    newn -> prev = NULL;
+                    newn -> val = No;
+                    newn -> next = NULL;
+
+        struct Node * temp = *Head;
+
+    for ( int iCnt = 1 ; iCnt < iPos - 1 ; iCnt++ )
+    {
+        temp = temp -> next;
+    }
+    newn -> next = temp -> next;
+    temp -> next -> prev = newn;
+
+    newn -> prev = temp ;
+    temp -> next = newn;
+    }
+}
+
+void DeleteLast (struct Node ** Head , struct Node ** Tail )
+{
+    if ( *Head == NULL && *Tail == NULL)
+    {
+        return ;
+    }
+    else if ( (*Head )-> next == NULL)
+    {
+        free( *Head);
+        *Head = NULL;
+        *Tail = NULL;
+    }
+    else 
+    {
+        *Tail = (*Tail) -> prev;
+        free (( *Tail) -> next);
+    }
+    (*Head) -> prev = *Tail;
+    (*Tail) -> next = *Head;
+}
+
+void DeleteFirst (struct Node ** Head , struct Node ** Tail )
+{
+    if ( *Head == NULL && *Tail == NULL)
+    {
+        return ;
+    }   
+    else if ( (*Head ) -> next == NULL)
+    {
+        free( *Head);
+        *Head = NULL;
+        *Tail = NULL;
+    }
+    else 
+    {
+        *Head = (*Head) -> next;
+        free((*Head) -> prev);
+    }
+
+    (*Head ) -> prev = *Tail;
+    (*Tail) -> next = *Head;
+}
+void DeleteAtPos (struct Node ** Head , struct Node ** Tail , int iPos )
+{
+    int iLength = Count( *Head , *Tail);
+    if ( iPos < 1 || ( iPos > iLength +1  ))  
+    {
+        return;
+    }
+    if ( iPos == 1)
+    {
+        DeleteFirst(Head , Tail);
+    }
+    else if (iPos == iLength)
+    {
+        DeleteLast ( Head , Tail);
+    }
+    else
+    {
+        struct Node * temp = *Head;
+        for ( int iCnt = 1 ; iCnt < iPos - 1 ; iCnt ++)
         {
-            printf("ReguralFile .......\n");
+            temp = temp -> next;
         }
+        temp -> next = temp -> next -> next;
+        free(temp -> next -> prev);
+        temp -> next -> prev  = temp;
     }
+}
 
-    closedir(dp);
+
+int main()
+{
+    struct Node * First = NULL;
+    struct Node * Last = NULL;
+
+ int iRet = 0;
+
+    InsertFirst(&First,&Last,51);
+    InsertFirst(&First,&Last,21);
+    InsertFirst(&First,&Last,11);
+
+    InsertLast(&First,&Last,101);
+    InsertLast(&First,&Last,111);
+    InsertLast(&First,&Last,121);
+    InsertAtPos(&First, &Last, 4 , 55);
+
+    Display(First,Last);
+
+    iRet = Count(First,Last);
+    printf("Number of nodes are : %d\n",iRet);
+
+    Display(First,Last);
+
+    iRet = Count(First,Last);
+    printf("Number of nodes are : %d\n",iRet);
+
+    DeleteAtPos(&First, &Last, 4);
+    Display(First,Last);
+
+    iRet = Count(First,Last);
+    printf("Number of nodes are : %d\n",iRet);
+
+    DeleteFirst(&First, &Last);
+    DeleteLast(&First, &Last);
+    
+    Display(First,Last);
+
+    iRet = Count(First,Last);
+    printf("Number of nodes are : %d\n",iRet);
+
 
     return 0;
 }
