@@ -14,7 +14,7 @@ int main( int argc , char *argv[])
         return -1;
     }
 
-    stat(argv[1] , &sobj );
+    fstat(argv[1] , &sobj );
 
     printf("File Name : %s \n",argv[1]);
     printf("File Size is : %ld \n",sobj.st_size);
