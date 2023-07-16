@@ -8,6 +8,8 @@
 
 int main(int argc ,  char * argv[])
 {
+    char path[50] ;
+
     if ( argc != 3)
     {
         printf("Invalid Arguments \n");
@@ -29,6 +31,9 @@ int main(int argc ,  char * argv[])
         if (strcmp(argv[2] , entry -> d_name) == 0 )
         {
             printf("File is Available in thr Directory \n");
+            sprintf(path , "%s/%s ", argv[1] , argv[2]);
+            remove(path);
+            printf("File is Deleted \n");
             break;
         }
     }
