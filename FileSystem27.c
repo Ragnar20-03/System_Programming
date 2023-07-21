@@ -1,46 +1,47 @@
 #include<stdio.h>
-#include<fcntl.h>
 #include<stdlib.h>
 #include<string.h>
 #include<unistd.h>
+#include<fcntl.h>
 #include<dirent.h>
 #include<sys/stat.h>
 
-// Empty File 
-int main(int argc , char * argv[])
+int main(int argc, char *argv[])
 {
     char DirName[20];
-    DIR * dp = NULL;
-    struct dirent *entry  = NULL;
+    DIR *dp = NULL;
+    struct dirent *entry = NULL;
     char name[30];
     struct stat sobj;
-    char NameCopy[30] = {'/0'};
-    int iMax = 0 ;
+    char namecopy[30] = {'\0'};
+    int iMax = 0;
 
-    printf("Enter Name of Directory \n");
+    printf("Enter name of directory : \n");
     scanf("%s",DirName);
 
     dp = opendir(DirName);
-    if ( dp == NULL)
+    if(dp == NULL)
     {
-        printf("Unable to open Directory\n");
+        printf("Unable to open directory\n");
         return -1;
     }
 
-    while (( entry = readdir(dp)) != NULL) 
+    while((entry = readdir(dp)) != NULL)
     {
-        sprintf(name , "%s/%s" , DirName,entry -> d_name);
-        stat ( name , &sobj);
-        if (S_ISREG(sobj.st_mode))
+        sprintf(name,"%s/%s",DirName,entry->d_name);
+        stat(name,&sobj);
+        if(S_ISREG(sobj.st_mode))
         {
-            if (  sobj.st_size == 0 )
-
-         printf("Name of  empty File is : %s   \n",name);
+            if(sobj.st_size == 0)
+            {
+                printf("%s is an empty file : \n",name);
+            }
         }
     }
 
+    printf("Name of largest file : %s with size %d bytes \n",namecopy,iMax);
 
     closedir(dp);
-
+    
     return 0;
 }

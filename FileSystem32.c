@@ -1,22 +1,23 @@
 #include<stdio.h>
+#include<stdlib.h>
 #include<fcntl.h>
 #include<unistd.h>
-#include<string.h>
-#include<stdlib.h>
 
-int main(int argc ,  char * argv[])
+int main(int argc, char *argv[])
 {
-    int fd = 0 ;
-    if ( argc != 2)
+    int fd = 0;
+
+    if(argc != 2)
     {
-        printf("Invalid Arguments \n");
+        printf("Invalid arguments\n");
         return -1;
     }
-        // Creat vs Open 
-    fd = creat ( argv[1] ,0777     );
-    if ( fd != -1)
+
+    fd = creat(argv[1],0777);
+    if(fd != -1)
     {
-        printf("File is succesfully Created with %d : \n",fd);
+        printf("File is succesfully created with fd %d \n",fd);
     }
+    
     return 0;
 }
