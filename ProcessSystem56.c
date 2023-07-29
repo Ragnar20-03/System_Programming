@@ -5,7 +5,7 @@
 
 int main()
 {
-    printf("Inside Child Process \n");
+    printf("Inside Child Process  -> PID of Paerent Process is %d \n" , getppid());
 
     return 0;
-}
+} 

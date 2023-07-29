@@ -15,8 +15,12 @@ int main()
      }
      else   //Parent 
      {
+        while (1)
+        {
         printf("Parent is running with PID : %d\n",getpid());
+            
+        }
      }
 
     return 0;
-}
+} 

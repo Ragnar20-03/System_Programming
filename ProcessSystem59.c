@@ -10,13 +10,14 @@ int main()
 
      if ( Ret == 0) //Child 
      {
-        execl("./ChildProcess" , "NULL", NULL);  
+        execl("./ChildProcess" , "NNULL", NULL);  
    
      }
      else   //Parent 
      {
         printf("Parent is running with PID : %d\n",getpid());
+        // sleep(1000);
      }
 
     return 0;
-}
+} 
