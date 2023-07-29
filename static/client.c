@@ -1,5 +1,5 @@
 #include<stdio.h>
-#include "sharedfile.h"
+#include "sharedfile.c"
 
 int main()
 {

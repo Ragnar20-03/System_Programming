@@ -7,7 +7,7 @@ int main()
     void *ptr = NULL;
     void (*fptr)();
 
-    ptr = dlopen("library.so",RTLD_LAZY);
+    ptr = dlopen("./library.so",RTLD_LAZY);
     if(ptr == NULL)
     {
         printf("Unable to load liabrary\n");
