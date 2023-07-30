@@ -1,23 +1,21 @@
-#include <stdio.h>
-#include<fcntl.h>
-#include<unistd.h>
+#include<stdio.h>
 #include<stdlib.h>
+#include<unistd.h>
 
 int main()
 {
-    int Ret = 0; 
-     Ret = fork();
+    int Ret = 0;
 
-     if ( Ret == 0) //Child 
-     {
-        execl("./ChildProcess" , "NNULL", NULL);  
-   
-     }
-     else   //Parent 
-     {
+    Ret = fork();
+
+    if(Ret == 0)  // Child  
+    {
+        execl("./ChildProcess","NULL",NULL);
+    }
+    else        // Parent
+    {
         printf("Parent is running with PID : %d\n",getpid());
-        // sleep(1000);
-     }
-
+        sleep(10);
+    }
     return 0;
-} 
+}

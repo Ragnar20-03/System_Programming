@@ -1,11 +1,10 @@
-#include <stdio.h>
-#include<fcntl.h>
-#include<unistd.h>
+#include<stdio.h>
 #include<stdlib.h>
+#include<unistd.h>
 
 int main()
 {
-    printf("Inside Child Process  -> PID of Paerent Process is %d \n" , getppid());
+    printf("Inside child process - PID of parent process is %d\n",getppid());
 
     return 0;
-} 
+}
