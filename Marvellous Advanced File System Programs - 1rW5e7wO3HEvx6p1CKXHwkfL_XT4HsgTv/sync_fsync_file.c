@@ -13,8 +13,8 @@ int main(void)
 	if(fd1 == -1)
 	{
 		printf("Unable to open file \n");
-		return -1;
 	}
+		return -1;
 
 	ret = write(fd1,buff,sizeof(buff)-1);
 	if(ret != 8)

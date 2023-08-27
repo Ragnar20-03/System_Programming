@@ -32,6 +32,8 @@ int main()
         printf("%c",*ptr);
         ptr++;
     }
+
+    shmdt(shmid);
     
     return 0;
 }

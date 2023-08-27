@@ -1,25 +1,24 @@
-// Server for Shared Memory
+// Server for shared memory
 
-#include<fcntl.h>
-#include<unistd.h>
 #include<stdio.h>
 #include<stdlib.h>
+#include<unistd.h>
+#include<fcntl.h>
 #include<string.h>
 #include<sys/stat.h>
-#include<sys/types.h>
-#include<sys/shm.h>
-
+#include <sys/shm.h>
 
 int main()
 {
-    int shmid  = 0 ; 
-    int shmsize = 100 ; 
-    int key = 1234;
-    printf("Server Application running ...\n");
+    int shmid = 0;
+    int shmsize = 100;
+    int Key = 1234;
 
-    shmid = shmget(key,shmsize , IPC_CREAT | 0666);
+    printf("Server application running...\n");
+
+    shmid = shmget(Key,shmsize,IPC_CREAT | 0666);
 
     printf("Shared memory allocated succesfully...\n");
 
     return 0;
-}   
+}
