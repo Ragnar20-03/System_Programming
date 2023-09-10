@@ -1,0 +1,6 @@
+
+z#First Make File 
+
+all :
+	gcc Demo.c -o Myexe 
+
