@@ -1,0 +1,1 @@
+cmd_/home/ragnar20-03/Desktop/LSP/Marvellous_Kernel_Modules/Module1/Module.symvers :=  scripts/mod/modpost -m -a     -o /home/ragnar20-03/Desktop/LSP/Marvellous_Kernel_Modules/Module1/Module.symvers -T /home/ragnar20-03/Desktop/LSP/Marvellous_Kernel_Modules/Module1/modules.order -i Module.symvers -e 
